@@ -17,10 +17,13 @@
   "dependencies": {
     "@phosphor-icons/vue": "^2.2.1",
     "@radix-icons/vue": "^1.0.0",
+    "@types/dompurify": "^3.0.5",
     "@vueuse/core": "^11.2.0",
     "axios": "^1.7.7",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "dompurify": "^3.1.7",
+    "marked": "^15.0.0",
     "pinia": "^2.2.6",
     "radix-vue": "^1.9.8",
     "tailwind-merge": "^2.5.4",
