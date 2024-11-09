@@ -9,7 +9,7 @@ const isLogged = storageValue.value !== null
 </script>
 
 <template>
-  <div class="overflow-hidden bg-zinc-200">
+  <div class="overflow-x-hidden bg-zinc-200">
     <header
       v-if="isLogged"
       class="fixed z-30 flex w-screen flex-1 items-center justify-between gap-2 border-b border-zinc-800/30 bg-zinc-200/70 p-2 px-4 pr-10 backdrop-blur"

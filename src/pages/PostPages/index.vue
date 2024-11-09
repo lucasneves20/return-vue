@@ -56,4 +56,4 @@ onMounted(() => { getMarkdown(markdown, loadingMarkdown) })
   </main>
 </template>
 
-<style src="./markdown.css"></style>
+<style scoped src="./markdown.css"></style>

@@ -7,7 +7,7 @@ import Signin from './SigninPage.vue';
 <template>
   <Tabs
     default-value="login"
-    class="flex h-full flex-col items-center justify-center"
+    class="flex h-screen flex-col items-center justify-center"
   >
     <TabsList>
       <TabsTrigger value="login">

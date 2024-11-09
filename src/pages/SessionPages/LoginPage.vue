@@ -25,6 +25,10 @@ const {toast} = useToast()
 function handleLogin(event: Event) {
   event.preventDefault()
 
+  // em desenvolvimento ele adiciona automaticamente um token ao apertar
+  updateLocalToken("qualquer coisa")
+  router.push({ path: router.currentRoute.value.path, force: true })
+
   if (!user.email || !user.password) {
     toast({
       title: "Atenção!",
