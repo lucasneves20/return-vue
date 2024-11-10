@@ -9,9 +9,11 @@ import { reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 const { updateLocal: updateLocalToken } = useLocalStorage('user:token')
+const { updateLocal: updateLocalUser } = useLocalStorage('user:id')
 
 interface UserResponse {
   token: string
+  userId: string
 }
 
 const user = reactive({
@@ -27,7 +29,7 @@ function handleLogin(event: Event) {
 
   // em desenvolvimento ele adiciona automaticamente um token ao apertar
   updateLocalToken("qualquer coisa")
-  router.push({ path: router.currentRoute.value.path, force: true })
+  window.location.reload()
 
   if (!user.email || !user.password) {
     toast({
@@ -38,6 +40,7 @@ function handleLogin(event: Event) {
 
   api.post('/login', user).then(({data}: AxiosResponse<UserResponse>) => {
     updateLocalToken(data.token)
+    updateLocalUser(data.userId)
     router.push('/')
   })
 }

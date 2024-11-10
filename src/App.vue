@@ -7,6 +7,6 @@ import { RouterView } from 'vue-router';
 <template>
   <root-layout>
     <router-view />
-    <toaster />
+    <Toaster />
   </root-layout>
 </template>
