@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  node-app:
+    build: .
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173" # Replace 3000 with your app's port if different
+    environment:
+      NODE_ENV: development
