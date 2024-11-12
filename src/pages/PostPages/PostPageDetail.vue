@@ -10,19 +10,23 @@ import { parseMarkdown } from './parseMarkdown';
 
 
 const markdown = ref()
+const markdownMetadata = ref()
 const loadingMarkdown = ref(false)
 
 const route = useRoute()
-const userIdLocal = localStorage.getItem('user:id')
+const userIdLocal = Number(localStorage.getItem('user:id'))
 const isOwnerUser = ref(false)
 
 onMounted(() => {
-  parseMarkdown(markdown, loadingMarkdown)
+  console.log(route.fullPath)
 
   if(route.params.id) {
-    api.get(`/post/${route.params.id}`).then(response => {
+    api.get(`/posts/${route.params.id}`).then(response => {
+      markdownMetadata.value = response.data
+      markdown.value = response.data.content
+      parseMarkdown(markdown, loadingMarkdown)
 
-      if(userIdLocal === response.data.user_id) {
+      if(userIdLocal === response.data.userId) {
         isOwnerUser.value = true
       }
     })
@@ -39,9 +43,8 @@ onMounted(() => {
             <h1 class="text-3xl font-semibold">
               Post
             </h1>
-            <h3>
-              feito a {{ new Date().toLocaleDateString('pt-BR') }}
-              <span class="ml-2 text-zinc-900/50">post id {{ $route.params.id }}</span>
+            <h3 v-if="loadingMarkdown">
+              feito a {{ new Date(markdownMetadata.createdAt).toLocaleDateString('pt-BR') }}
             </h3>
           </div>
 

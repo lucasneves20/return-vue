@@ -12,6 +12,7 @@
     "type-check": "vue-tsc --build --force",
     "lint": "eslint . --fix",
     "format": "prettier --write src/",
+    "db": "pnpm dlx json-server --watch db.json",
     "shad": "pnpm dlx shadcn-vue@latest add"
   },
   "dependencies": {
@@ -23,12 +24,14 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "dompurify": "^3.1.7",
+    "json-server": "1.0.0-beta.3",
     "marked": "^15.0.0",
     "md-editor-v3": "^4.21.3",
     "pinia": "^2.2.6",
     "radix-vue": "^1.9.8",
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7",
+    "uuid": "^11.0.3",
     "vue": "^3.5.12",
     "vue-router": "^4.4.5"
   },
