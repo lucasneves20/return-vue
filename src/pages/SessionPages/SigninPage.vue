@@ -6,7 +6,6 @@ import { api } from '@/lib/axios';
 import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
 import type { AxiosResponse } from 'axios';
 import { reactive, ref } from 'vue';
-import { useRouter } from 'vue-router';
 
 const { updateLocal: updateLocalToken } = useLocalStorage('user:token')
 const { updateLocal: updateLocalUser } = useLocalStorage('user:id')
@@ -21,7 +20,6 @@ const user = reactive({
   email: '',
   password: '',
 })
-const router = useRouter();
 const loading = ref(false)
 const {toast} = useToast()
 
@@ -29,6 +27,7 @@ function handleLogin(event: Event) {
   event.preventDefault()
 
   if (!user.email || !user.password) {
+    // TODO consertar toast que não funciona de forma correta
     toast({
       title: "Atenção!",
       description: "Email ou senha estão vazios, preencha com dados"
@@ -38,7 +37,7 @@ function handleLogin(event: Event) {
   api.post('/register', user).then(({data}: AxiosResponse<UserResponse>) => {
     updateLocalToken(data.token)
     updateLocalUser(data.userId)
-    router.push('/')
+    window.location.reload()
   })
 }
 </script>

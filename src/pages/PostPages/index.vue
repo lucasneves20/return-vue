@@ -7,7 +7,7 @@ import { onMounted, ref } from 'vue';
 import Comment, { CommentProps } from './Comment.vue';
 
 interface Post {
-  id: number;
+  ID: number;
   title: string;
   content: string;
   userId: number;
@@ -35,7 +35,7 @@ onMounted(() => {
     <div class="ml-4 flex w-3/4 flex-col border lg:w-1/2">
       <div
         v-for="post of posts"
-        :key="`post-${post.id}`"
+        :key="`post-${post.ID}`"
         class="flex flex-col items-center justify-center"
       >
         <Card
@@ -44,7 +44,7 @@ onMounted(() => {
           <div class="flex items-center justify-between p-6">
             <div
               class="mr-10 w-full cursor-pointer rounded-lg p-2 transition-colors ease-in-out hover:bg-zinc-300"
-              @click="router.push(`/post/${post.id}`)"
+              @click="router.push(`/post/${post.ID}`)"
             >
               <h1 class="text-3xl font-semibold">
                 {{ post.title }}

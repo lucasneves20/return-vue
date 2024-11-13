@@ -5,32 +5,42 @@ import { api } from '@/lib/axios';
 import router from '@/router';
 import { MdEditor } from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
-import { onMounted, ref } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import { parseMarkdown } from '../PostPages/parseMarkdown';
 
 const route = useRoute()
-const markdownContent = ref('')
-const markdownMetadata = ref()
-const title = ref()
+const markdown = reactive({
+  title: '',
+  content: ''
+})
 const loading = ref(false)
 
 onMounted(() => {
-  if(route.params.id) {
-    api.get(`/post/${route.params.id}`).then(response => {
-      markdownMetadata.value = response.data
-      markdownContent.value = markdownMetadata.value.content
+  if(route.params.postId) {
+    api.get(`/post/${route.params.postId}`).then(response => {
+      console.log(response.data)
+      markdown.title = response.data.title
+      markdown.content = response.data.content
     })
   }
 })
 
 function mutatePostHanlder() {
-  const markdown = parseMarkdown(markdownContent.value, loading.value)
-  const content = {title: title.value, content: markdown}
+  const content = {
+    title: markdown.title,
+    content: markdown.content,
+    user_id: Number(localStorage.getItem("user:id"))
+  }
 
-  console.log(content)
-
-  api.post('/post', content)
+  if(route.params.postId) {
+    api.put(`/post/${route.params.postId}`, content).then(() => {
+      router.push("/")
+    })
+  } else {
+    api.post('/post', content).then(() => {
+      router.push("/")
+    })
+  }
 }
 </script>
 
@@ -43,14 +53,14 @@ function mutatePostHanlder() {
         <div class="flex gap-4">
           <h2>Crie seu post</h2>
           <Input
-            v-model="title"
+            v-model="markdown.title"
             placeholder="Título do Post"
             class="max-w-96 bg-zinc-50 p-2"
           />
         </div>
 
         <md-editor
-          v-model="markdownContent"
+          v-model="markdown.content"
           language="pt-BR"
         />
 

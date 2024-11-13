@@ -4,9 +4,7 @@ import Input from '@/components/ui/input/Input.vue';
 import { useToast } from '@/components/ui/toast/use-toast';
 import { api } from '@/lib/axios';
 import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
-import type { AxiosResponse } from 'axios';
 import { reactive, ref } from 'vue';
-import { useRouter } from 'vue-router';
 
 const { updateLocal: updateLocalToken } = useLocalStorage('user:token')
 const { updateLocal: updateLocalUser } = useLocalStorage('user:id')
@@ -20,28 +18,24 @@ const user = reactive({
   email: '',
   password: '',
 })
-const router = useRouter();
 const loading = ref(false)
-const {toast} = useToast()
+const { toast } = useToast()
 
 function handleLogin(event: Event) {
   event.preventDefault()
 
-  // em desenvolvimento ele adiciona automaticamente um token ao apertar
-  updateLocalToken("qualquer coisa")
-  window.location.reload()
-
   if (!user.email || !user.password) {
+    // TODO consertar toast que não funciona de forma correta
     toast({
       title: "Atenção!",
       description: "Email ou senha estão vazios, preencha com dados"
     })
   }
 
-  api.post('/login', user).then(({data}: AxiosResponse<UserResponse>) => {
-    updateLocalToken(data.token)
-    updateLocalUser(data.userId)
-    router.push('/')
+  api.post('/login', user).then((response) => {
+    updateLocalToken(response.data.token)
+    updateLocalUser(response.data.user_id)
+    window.location.reload()
   })
 }
 </script>

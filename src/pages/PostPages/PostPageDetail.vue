@@ -18,19 +18,15 @@ const userIdLocal = Number(localStorage.getItem('user:id'))
 const isOwnerUser = ref(false)
 
 onMounted(() => {
-  console.log(route.fullPath)
+  api.get(`/post/${route.params.id}`).then(response => {
+    markdownMetadata.value = response.data
+    markdown.value = response.data.content
+    parseMarkdown(markdown, loadingMarkdown)
 
-  if(route.params.id) {
-    api.get(`/posts/${route.params.id}`).then(response => {
-      markdownMetadata.value = response.data
-      markdown.value = response.data.content
-      parseMarkdown(markdown, loadingMarkdown)
-
-      if(userIdLocal === response.data.userId) {
-        isOwnerUser.value = true
-      }
-    })
-  }
+    if(userIdLocal === response.data.user_id) {
+      isOwnerUser.value = true
+    }
+  })
 })
 </script>
 
@@ -55,7 +51,7 @@ onMounted(() => {
 
             <Button
               v-if="isOwnerUser"
-              @click="router.push(`/editor-post/${userIdLocal}`)"
+              @click="router.push(`/editor-post/${markdownMetadata.ID}`)"
             >
               Editar Post
             </Button>
