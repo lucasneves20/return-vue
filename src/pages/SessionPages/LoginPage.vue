@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Button } from '@/components/ui/button';
 import Input from '@/components/ui/input/Input.vue';
+import Toaster from '@/components/ui/toast/Toaster.vue';
 import { useToast } from '@/components/ui/toast/use-toast';
 import { api } from '@/lib/axios';
 import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
@@ -9,15 +10,11 @@ import { reactive, ref } from 'vue';
 const { updateLocal: updateLocalToken } = useLocalStorage('user:token')
 const { updateLocal: updateLocalUser } = useLocalStorage('user:id')
 
-interface UserResponse {
-  token: string
-  userId: string
-}
-
 const user = reactive({
   email: '',
   password: '',
 })
+
 const loading = ref(false)
 const { toast } = useToast()
 
@@ -80,4 +77,5 @@ function handleLogin(event: Event) {
       </div>
     </form>
   </div>
+  <Toaster />
 </template>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Button } from '@/components/ui/button';
 import Input from '@/components/ui/input/Input.vue';
+import Toaster from '@/components/ui/toast/Toaster.vue';
 import { useToast } from '@/components/ui/toast/use-toast';
 import { api } from '@/lib/axios';
 import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
@@ -30,7 +31,7 @@ function handleLogin(event: Event) {
     // TODO consertar toast que não funciona de forma correta
     toast({
       title: "Atenção!",
-      description: "Email ou senha estão vazios, preencha com dados"
+      description: "Os campos de cadastro estão vazios, preencha com todos"
     })
   }
 
@@ -87,4 +88,5 @@ function handleLogin(event: Event) {
       </div>
     </form>
   </div>
+  <Toaster />
 </template>
