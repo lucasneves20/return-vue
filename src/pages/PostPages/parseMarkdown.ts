@@ -1,5 +1,5 @@
-import { ReadMarkdown } from "@/lib/marked"
-import type { Ref } from "vue"
+import { ReadMarkdown } from '@/lib/marked'
+import type { Ref } from 'vue'
 
 export async function parseMarkdown(pureMarkdown: Ref<string>, loading: Ref) {
   loading.value = true

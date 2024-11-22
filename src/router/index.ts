@@ -1,4 +1,5 @@
 import NotFound from '@/pages/NotFound.vue'
+import PerfilPage from '@/pages/Perfil/PerfilPage.vue'
 import PostEditor from '@/pages/PostEditor/PostEditor.vue'
 import PostPageDetail from '@/pages/PostPages/PostPageDetail.vue'
 import { createRouter, createWebHistory } from 'vue-router'
@@ -28,6 +29,11 @@ const router = createRouter({
       path: '/editor-post/:postId',
       name: 'Edit Post',
       component: PostEditor,
+    },
+    {
+      path: '/perfil/:userId',
+      name: 'Perfil',
+      component: PerfilPage
     },
     {
       path: '/:pathMatch(.*)*',

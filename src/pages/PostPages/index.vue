@@ -5,7 +5,7 @@ import Dialog from '@/components/ui/dialog/Dialog.vue';
 import DialogTrigger from '@/components/ui/dialog/DialogTrigger.vue';
 import { api } from '@/lib/axios';
 import router from '@/router';
-import { onMounted, reactive, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import type { CommentProps } from './comment';
 import CommentDialog from './CommentDialog.vue';
 
@@ -24,9 +24,6 @@ interface Post {
 
 
 const loadingPosts = ref(false)
-const commentInput = reactive({
-  inputValue: '',
-})
 const posts = ref<Post[]>()
 
 onMounted(() => {
@@ -43,8 +40,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex justify-center border">
-    <div class="ml-4 flex w-3/4 flex-col border lg:w-1/2">
+  <div class="flex justify-center">
+    <div class="ml-4 flex w-3/4 flex-col lg:w-1/2">
       <div
         v-for="post of posts"
         :key="`post-${post.ID}`"
@@ -55,7 +52,7 @@ onMounted(() => {
         >
           <div class="flex items-center justify-between p-6">
             <div
-              class="mr-10 w-full cursor-pointer rounded-lg p-2 transition-colors ease-in-out hover:bg-zinc-300"
+              class="mr-10 w-full cursor-pointer rounded-lg p-2 transition-colors ease-in-out hover:bg-foreground/30"
               @click="router.push(`/post/${post.ID}`)"
             >
               <h1 class="text-3xl font-semibold">
@@ -87,7 +84,7 @@ onMounted(() => {
             >
               <div>
                 {{ postComment.content }} -
-                <span class="text-zinc-900/30">feito no dia: {{ new Date(postComment.CreatedAt).toLocaleDateString("pt-BR") }} as {{
+                <span class="text-foreground/40">feito no dia: {{ new Date(postComment.CreatedAt).toLocaleDateString("pt-BR") }} as {{
                   new Date(postComment.CreatedAt).toLocaleTimeString("pt-BR")
                 }}</span>
               </div>
